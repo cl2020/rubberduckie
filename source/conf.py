@@ -21,9 +21,18 @@ author = "Colin Li"
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
+    "sphinx.ext.autosummary",
 ]
 
 autodoc_mock_imports = ["cml", "impala"]
+
+autosummary_generate = True
+
+autodoc_default_options = {
+    "members": True,
+    "undoc-members": True,
+    "show-inheritance": True,
+}
 
 templates_path = ["_templates"]
 exclude_patterns = []
