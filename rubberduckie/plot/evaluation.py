@@ -16,17 +16,17 @@ if DEBUG:
 def prepare_confusion_matrix(
     y, y_hat, model_name="", average="weighted", save_fig_to=None
 ):
-    """Prepare confusion matrix for model evaluation
-
-    Author:
-        Colin Li @ 2023-05
+    """Prepare a confusion matrix for model evaluation.
 
     Args:
-        y (iterable): actual y
-        y_hat (iterable): predicted y
-        model_name (str, optional): Name of the model. Defaults to ''.
-        average (str, optional): average method. Defaults to 'weighted'.
-        save_fig_to (str, optional): file path for output. Defaults to None.
+        y (iterable): Actual labels.
+        y_hat (iterable): Predicted labels.
+        model_name (str, optional): Model name. Defaults to ``""``.
+        average (str, optional): Averaging method. Defaults to ``weighted``.
+        save_fig_to (str, optional): File path for output. Defaults to None.
+
+    Notes:
+        Author: Colin Li (2023-05).
     """
     f1 = f1_score(y, y_hat, average=average)
     precision = precision_score(y, y_hat, average=average)

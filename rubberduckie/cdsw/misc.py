@@ -1,12 +1,14 @@
 import subprocess
 
 def clean_cdsw_project_trash(confirm=False):
-    """Clean trash in CDSW project
-    Author:
-        Justin Trinh @ 2024-05
+    """Clean trash in a CDSW project.
+
     Args:
-        confirm (bool, optional): Require user to confirm trash cleaning
+        confirm (bool, optional): Require user confirmation before cleanup.
             Defaults to False.
+
+    Notes:
+        Author: Justin Trinh (2024-05).
     """
     # Retrieve size of Trash folder
     subprocess_trash = subprocess.run(

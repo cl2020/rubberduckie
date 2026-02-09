@@ -37,15 +37,20 @@ M_FIX_FAIL_OPTUNA = "Optuna import error was not fixed."
 
 
 def fix_cdsw_import_error(package_name, py_version: str):
-    """Fix known issues that arise when importing specific packages in CDSW
-
-    Author:
-        Colin Li @ 2023-06
+    """Fix known issues that arise when importing packages in CDSW.
 
     Args:
-        package_name (str): Name of the package (current only support optuna)
+        package_name (str): Package name (currently only supports ``optuna``).
+        py_version (str): Python version of the environment with the issue.
 
-        py_version (str): Python version of environment with issue
+    Returns:
+        bool | None: True if the workaround succeeds, otherwise None.
+
+    Raises:
+        OSError: If not running on Linux (CDSW).
+
+    Notes:
+        Author: Colin Li (2023-06).
     """
     # Check
     if sys.platform != "linux":

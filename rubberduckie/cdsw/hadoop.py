@@ -12,19 +12,19 @@ DEBUG = False
 if DEBUG:
     print("DB tools are loaded!")
 
-def prepare_connection(host:str=None, **kwargs):
-    """Prepare connection to Cloudera IDP (in Azure) in CDSW
-
-    Author:
-        Colin Li, Justin Trinh, Stephen Oates @ 2025-02
+def prepare_connection(host: str = None, **kwargs):
+    """Prepare connection to Cloudera IDP (in Azure) in CDSW.
 
     Args:
-        host (str): connection name
-        vwh_host: vwh host name
-        vwh_port: vwh port number
+        host (str): Connection name.
+        vwh_host (str): VWH host name.
+        vwh_port (int): VWH port number.
 
     Returns:
-        cml.data_v1.impalaconnection.ImpalaConnection: connection to Cloudera IDP in Azure
+        cml.data_v1.impalaconnection.ImpalaConnection: Connection to Cloudera IDP in Azure.
+
+    Notes:
+        Authors: Colin Li, Justin Trinh, Stephen Oates (2025-02).
     """
     username = os.environ.get('HADOOP_USER_NAME')
     password = os.environ.get('WORKLOAD_PASSWORD').encode('utf-8').decode('unicode_escape')
@@ -56,14 +56,14 @@ def prepare_connection(host:str=None, **kwargs):
             "2. 'WORKLOAD_PASSWORD' holds your workload password provided by the IDP Team.")
 
 def execute_db_query(conn, query: str):
-    """Execute database query for IDP in Azure
-
-    Author:
-        Colin Li, Justin Trinh, Stephen Oates @ 2025-02
+    """Execute a database query for IDP in Azure.
 
     Args:
-        conn (impala.dbapi.connect): connection
-        query (str): can be either a string or a sql file path
+        conn (impala.dbapi.Connection): Connection handle.
+        query (str): SQL string or a path to a ``.sql`` file.
+
+    Notes:
+        Authors: Colin Li, Justin Trinh, Stephen Oates (2025-02).
     """
     if os.path.isfile(query) and query[-4:] == ".sql":
         query_path = query
@@ -88,17 +88,17 @@ def execute_db_query(conn, query: str):
     print(f"Task is completed!")
 
 def extract_db_data(conn, query: str):
-    """Extract data from IDP in Azure as pandas dataframe
-
-    Author:
-        Colin Li, Justin Trinh, Stephen Oates @ 2025-02
+    """Extract data from IDP in Azure as a pandas DataFrame.
 
     Args:
-        conn (cml.data_v1.impalaconnection.ImpalaConnection): connection
-        query (str): 'select' query which can be either a string or a sql file path
+        conn (cml.data_v1.impalaconnection.ImpalaConnection): Connection handle.
+        query (str): ``SELECT`` query string or a path to a ``.sql`` file.
 
     Returns:
-        pandas.DataFrame: Pandas dataframe containing database data
+        pandas.DataFrame: DataFrame containing database data.
+
+    Notes:
+        Authors: Colin Li, Justin Trinh, Stephen Oates (2025-02).
     """
     if os.path.isfile(query) and query[-4:] == ".sql":
         query_path = query
@@ -118,13 +118,16 @@ def extract_db_data(conn, query: str):
 
 
 def generate_sql_row(row):
-    """Generate one sql row used in sql insert statement
-    Author:
-        Colin Li @ 2025-02
+    """Generate one SQL row used in an INSERT statement.
+
     Args:
-        row (pd.Series): pandas data series
+        row (pandas.Series): Pandas data series.
+
     Returns:
-        str: one sql row used in sql insert statement
+        str: One SQL row used in an INSERT statement.
+
+    Notes:
+        Author: Colin Li (2025-02).
     """
     tb_row_s0 = row.tolist()
     for i, c in enumerate(tb_row_s0):
@@ -145,13 +148,15 @@ def generate_sql_row(row):
     return tb_row_s1
 
 def insert_one_row(row, conn, db_table_name):
-    """Insert one row into IDP table in Azure
-    Author:
-        Colin Li @ 2025-02
+    """Insert one row into an IDP table in Azure.
+
     Args:
-        row (_type_): _description_
-        conn (_type_): _description_
-        db_table_name (_type_): _description_
+        row (str): SQL values string (from ``generate_sql_row``).
+        conn (impala.hiveserver2.HiveServer2Connection): Connection handle.
+        db_table_name (str): Database and table name joined by ``.``.
+
+    Notes:
+        Author: Colin Li (2025-02).
     """
     try:
         with conn.get_cursor() as cursor:
@@ -165,19 +170,16 @@ def insert_one_row(row, conn, db_table_name):
             cursor.execute(t)
 
 def insert_rows_to_table(tasks_insert: list, conn, db_table_name, nrow_per_insert=20):
-    """Insert rows to IDP table in Azure
-
-    Author:
-        Colin Li @ 2023-02
+    """Insert rows into an IDP table in Azure.
 
     Args:
-        tasks_insert (list): list of strings which is the output from
-            function generate_sql_row
-        conn (impala.hiveserver2.HiveServer2Connection):
-            connetion to hive/impala
-        db_table_name (str): database and tablename joined by dot '.'
-        nrow_per_insert (int, optional): Number of rows per insert.
-            Defaults to 20.
+        tasks_insert (list): List of strings returned by ``generate_sql_row``.
+        conn (impala.hiveserver2.HiveServer2Connection): Connection handle.
+        db_table_name (str): Database and table name joined by ``.``.
+        nrow_per_insert (int, optional): Number of rows per insert. Defaults to 20.
+
+    Notes:
+        Author: Colin Li (2023-02).
     """
     tasks_size = len(tasks_insert)
     print(f"Rows to insert: {tasks_size}")
@@ -200,16 +202,16 @@ def insert_rows_to_table(tasks_insert: list, conn, db_table_name, nrow_per_inser
             insert_one_row(rows[0], conn, db_table_name)
 
 def insert_df_to_table(df, conn, db_table_name, nrow_per_insert=20):
-    """Insert pandas dataframe rows into IDP table in Azure
-    Author:
-        Colin Li @ 2024-05
+    """Insert pandas DataFrame rows into an IDP table in Azure.
+
     Args:
-        df (pandas.DataFrame): pandas dataframe
-        conn (impala.hiveserver2.HiveServer2Connection):
-            connetion to hive/impala
-        db_table_name (str): database and tablename joined by dot '.'
-        nrow_per_insert (int, optional): Number of rows per insert.
-            Defaults to 20.
+        df (pandas.DataFrame): Input dataframe.
+        conn (impala.hiveserver2.HiveServer2Connection): Connection handle.
+        db_table_name (str): Database and table name joined by ``.``.
+        nrow_per_insert (int, optional): Number of rows per insert. Defaults to 20.
+
+    Notes:
+        Author: Colin Li (2024-05).
     """
     tasks_insert = df.apply(generate_sql_row, axis=1).tolist()
     insert_rows_to_table(

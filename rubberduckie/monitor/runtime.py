@@ -37,12 +37,26 @@ def create_runtime_monitor_table(conn=None, db_table_name=None, drop_existing=Fa
     
 # Decorator function
 def monitor_runtime(project_name=None, project_status=None, task_date=None, tz=None, task_desc=None, task_seq=None, task_runtime='cdsw', tag_1=None, tag_2=None, tag_3=None, **kwargs):
-    """Log python function execution time. This function can be used
-       to monitor the runtime of any AI project. You need to write
-       each task you would like to monitor as python function, then 
-       use this function as a decorator.
+    """Log Python function execution time via a decorator.
 
-       Author: Colin Li @ 2024-05
+    Args:
+        project_name (str, optional): Project name.
+        project_status (str, optional): Project status.
+        task_date (datetime.date, optional): Task date.
+        tz (tzinfo, optional): Timezone for timestamps.
+        task_desc (str, optional): Task description.
+        task_seq (int, optional): Task sequence number.
+        task_runtime (str, optional): Runtime environment label. Defaults to ``cdsw``.
+        tag_1 (str, optional): Tag value.
+        tag_2 (str, optional): Tag value.
+        tag_3 (str, optional): Tag value.
+        **kwargs: Must include ``conn`` and ``db_table_name``.
+
+    Returns:
+        callable: Decorator that wraps the target function.
+
+    Notes:
+        Author: Colin Li (2024-05).
     """
     # Preparation
     conn = kwargs['conn']
@@ -53,10 +67,10 @@ def monitor_runtime(project_name=None, project_status=None, task_date=None, tz=N
         task_date = datetime.today().astimezone(tz).replace(tzinfo=None, microsecond=0).date()
         
     def decorate_func(func):
-        """decorator function"""
+        """Decorator function."""
         
         def wrap_func(*args, **kwargs):
-            """wrapper function"""
+            """Wrapper function."""
             
             # Initialise vars
             task_func_name = func.__name__
@@ -67,7 +81,7 @@ def monitor_runtime(project_name=None, project_status=None, task_date=None, tz=N
 
             # Define some nested util functions 
             def _update_record():
-                """Update record to be printed/inserted (internal)"""
+                """Update record to be printed/inserted (internal)."""
                 list_of_tuple_log = [
                     ('project_name',project_name),
                     ('project_status', project_status),
@@ -87,7 +101,7 @@ def monitor_runtime(project_name=None, project_status=None, task_date=None, tz=N
                 return OrderedDict(list_of_tuple_log)
                 
             def _calculate_duration():
-                """Calculate task duration in seconds (internal)"""
+                """Calculate task duration in seconds (internal)."""
                 task_duration = task_end_time - task_start_time
                 return task_duration.seconds
                 

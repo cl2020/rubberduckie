@@ -6,26 +6,27 @@ import pandas as pd
 def plot_categorical_shap(df, shap_values, categorical_feature, pred_class,
                           num_to_plot=10, codes_to_plot=None,
                           plot_type='strip', title=None):
-    """Plot Shapley values for categories within categorical feature for the
-    purpose of explainability.
-    
-    Author:
-        Justin Trinh @ 2024-06
-    
+    """Plot SHAP values for categories within a categorical feature.
+
     Args:
-        df (DataFrame): DataFrame that was used to generate shap_values
-        shap_values (list): Shapley values list of lists generated from explainer
-        categorical_feature (str): Categorical feature to be plotted
-        pred_class (int): Class for which Shapley values should be extracted from
+        df (pandas.DataFrame): Dataframe used to generate ``shap_values``.
+        shap_values (list): Shapley values list of lists generated from explainer.
+        categorical_feature (str): Categorical feature to be plotted.
+        pred_class (int): Class for which SHAP values should be extracted.
         num_to_plot (int, optional): Number of categories to plot. Defaults to 10.
-        codes_to_plot (iterable, optional): Specific codes for the graph to plot.
-            Overwrites default 'Top 10 influential' codes.
-        plot_type(str, optional): Options include 'strip' for stripplot, 'swarm'
-            for swarmplot, and 'box' for boxplot. Defaults to 'strip'.
-    
-    Note:
-        The plot may take a long time to generate using swarmplot for many
-        datapoints.
+        codes_to_plot (iterable, optional): Specific codes to plot. Overrides
+            the default top-10 selection.
+        plot_type (str, optional): ``strip``, ``swarm``, or ``box``.
+            Defaults to ``strip``.
+        title (str, optional): Plot title override.
+
+    Raises:
+        IndexError: If ``pred_class`` is out of range.
+        ValueError: If ``plot_type`` is invalid.
+
+    Notes:
+        Author: Justin Trinh (2024-06).
+        Swarm plots may be slow for large datasets.
     """
     
     if pred_class>len(shap_values)-1:

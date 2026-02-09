@@ -3,14 +3,17 @@ import pandas as pd
 
 
 def calc_weeks_between(date_start, date_end):
-    """Calculate number of weeks between two dates
-    Colin Li @ 2023Q1
+    """Calculate the number of weeks between two dates.
+
     Args:
-        date_start (datetime.datetime): start date
-        date_end (datetime.datetime): end date
+        date_start (datetime.datetime): Start date.
+        date_end (datetime.datetime): End date.
 
     Returns:
-        int: number of weeks in between
+        int: Number of weeks in between.
+
+    Notes:
+        Author: Colin Li (2023Q1).
     """
     y_start, w_start = date_start.isocalendar()[:2]
     y_end, w_end = date_end.isocalendar()[:2]
@@ -22,19 +25,20 @@ def calc_weeks_between(date_start, date_end):
 
 
 def prepare_dev_triangle(df, max_dev_period):
-    """Prepare development triangle
-
-    Colin Li @ 2023Q1
+    """Prepare a development triangle.
 
     Args:
-        df (pandas.DataFrame): dataframe contains below colunms:
-                               1. uid: unique identifer for each sample
-                               2. week_1: week number
-                               3. dev_period: development period number
-        max_dev_period (int): max number of develop period for triangle
+        df (pandas.DataFrame): Dataframe containing:
+            1. uid: unique identifier for each sample
+            2. week_1: week number
+            3. dev_period: development period number
+        max_dev_period (int): Max number of development periods for the triangle.
 
     Returns:
-        pandas.DataFrame: dataframe triangle
+        pandas.DataFrame: Development triangle dataframe.
+
+    Notes:
+        Author: Colin Li (2023Q1).
     """
     m_cols = len({"uid", "week_1", "dev_period"}.intersection(df.columns))
     w_text = "Columns 'uid', 'week_1', 'dev_period' must exist in input dataframe!"
