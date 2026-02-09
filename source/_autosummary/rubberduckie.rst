@@ -4,15 +4,33 @@
 .. automodule:: rubberduckie
 
    
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
 .. rubric:: Modules
 
 .. autosummary::
    :toctree:
    :recursive:
 
-   cdsw
-   da
-   dl
-   ml
-   plot
-   xai
+   rubberduckie.cdsw
+   rubberduckie.da
+   rubberduckie.dl
+   rubberduckie.ml
+   rubberduckie.plot
+   rubberduckie.xai
+

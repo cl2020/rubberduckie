@@ -4,12 +4,30 @@ rubberduckie.cdsw
 .. automodule:: rubberduckie.cdsw
 
    
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
 .. rubric:: Modules
 
 .. autosummary::
    :toctree:
    :recursive:
 
-   hadoop
-   import_fix
-   misc
+   rubberduckie.cdsw.hadoop
+   rubberduckie.cdsw.import_fix
+   rubberduckie.cdsw.misc
+

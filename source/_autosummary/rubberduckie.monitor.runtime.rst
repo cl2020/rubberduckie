@@ -4,6 +4,11 @@ rubberduckie.monitor.runtime
 .. automodule:: rubberduckie.monitor.runtime
 
    
+   
+   
+
+   
+   
    .. rubric:: Functions
 
    .. autosummary::
@@ -11,3 +16,15 @@ rubberduckie.monitor.runtime
       create_runtime_monitor_table
       monitor_runtime
    
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

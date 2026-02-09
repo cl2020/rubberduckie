@@ -4,6 +4,11 @@ rubberduckie.da.pilot
 .. automodule:: rubberduckie.da.pilot
 
    
+   
+   
+
+   
+   
    .. rubric:: Functions
 
    .. autosummary::
@@ -11,3 +16,15 @@ rubberduckie.da.pilot
       calc_weeks_between
       prepare_dev_triangle
    
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

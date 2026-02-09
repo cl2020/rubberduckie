@@ -4,11 +4,29 @@ rubberduckie.plot
 .. automodule:: rubberduckie.plot
 
    
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
 .. rubric:: Modules
 
 .. autosummary::
    :toctree:
    :recursive:
 
-   evaluation
-   shap_visual
+   rubberduckie.plot.evaluation
+   rubberduckie.plot.shap_visual
+

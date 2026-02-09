@@ -4,6 +4,11 @@ rubberduckie.cdsw.hadoop
 .. automodule:: rubberduckie.cdsw.hadoop
 
    
+   
+   
+
+   
+   
    .. rubric:: Functions
 
    .. autosummary::
@@ -16,3 +21,15 @@ rubberduckie.cdsw.hadoop
       insert_rows_to_table
       prepare_connection
    
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
