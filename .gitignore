@@ -1,6 +1,5 @@
 # Python Env
 .venv/
-pyproject.toml
 
 # Archive
 archive/

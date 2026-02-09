@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=56", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = false
+
+
+[tool.setuptools.packages.find]
+exclude = ["archive*", "bin*", "dist*", "docs*", "lib*", "share*", ".vscode*"]
+
+[project]
+name = "rubberduckie"
+version = "2025.02.02"
+authors = [
+    {name = "Colin & Team", email = "colin.syd.au@gmail.com"},
+]
+description = "By Data Scientists and For Data Scientists"
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+requires-python = ">=3.7"
+dependencies = [
+    "scikit-learn",
+    "numpy>=1.21.6",
+    "matplotlib",
+    "seaborn",
+    "pandas",
+    "tqdm",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+
+[project.optional-dependencies]
+doc = [
+    "sphinx~=7.1.2",
+    "myst-parser~=2.0.0",
+    "furo",
+    "nbsphinx",
+    "sphinx_rtd_theme",
+]
