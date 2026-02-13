@@ -6,10 +6,11 @@
 RubberDuckie documentation
 ==========================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+.. figure:: _static/rubberduckie_icon.png
+   :alt: RubberDuckie logo
+   :width: 300px
 
+Python library designed to make AI model development and deployment easier.
 
 .. toctree::
    :maxdepth: 2
